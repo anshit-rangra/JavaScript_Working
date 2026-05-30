@@ -89,13 +89,13 @@ Tokens:
 
 ### Syntax Parsing
 
-after that second parsing jo hai vo hai Syntax parsing jo ki syntax check krti hai.
+after that second parsing jo hai vo hai Syntax parsing jo ki syntax check krti hai aur tokens se AST tree create krke deta hai.
 
 ---
 
 ## AST
 
-fir parsing ke baad hume AST Abstract Symetric tree milta hai jisme code ki related saari cheeze hoti hai.
+fir parsing ke baad hume AST Abstract Syntax Tree milta hai jisme code ki related saari cheeze hoti hai.
 
 # Compilation and JIT Compiler
 
@@ -106,6 +106,7 @@ Av AST milne ke baad humara ye AST code ko Bytecode mein convert kiya jaata hai.
 ## Compilation ke time pe kya hota hai?
 
 js ka engine use krta hai JIT compilation (Just in time compilation).
+Sabse pehle interpreter bytecode ko execute krega aur hot code ko JIT observe krke machine code mein convert krr dega
 
 ---
 
