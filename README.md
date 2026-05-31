@@ -124,4 +124,90 @@ Hot code - esa piece of code jo bhot baar run kre.
 
 JIT code ko observe krke uss mein se hot code ko compile krta hai and baki code ko interpreter ke through run krwata hai.
 
+# Asynchronous Operations in JavaScript
 
+Hum jaante hain ki JavaScript code ko execute karne ke liye **Call Stack** use karti hai.
+
+Lekin problem tab aati hai jab koi aisa kaam aa jaye jiska execution time hume pehle se pata nahi hota, jaise:
+
+- API call karna
+- User ki location access karna
+- Timer lagana (`setTimeout`)
+- File read karna
+
+Agar JavaScript khud in tasks ko execute karne lage, to poora code tab tak ruk jayega jab tak ye task complete na ho jaye.
+
+## Web APIs
+
+Browser JavaScript ko kuch extra functionalities provide karta hai jinhe **Web APIs** kaha jaata hai.
+
+Web APIs JavaScript ko advanced features use karne ki capability deti hain, jaise:
+
+- Location access karna
+- API requests bhejna
+- Timers chalana
+- DOM events handle karna
+
+## Kaise Kaam Karta Hai?
+
+Jab Call Stack mein koi asynchronous task aata hai, to JavaScript us task ko execute karne ke liye **Web API** ko de deti hai.
+
+Web API us task ko background mein handle karti rehti hai, aur tab tak JavaScript apna baaki synchronous code execute karti rehti hai.
+
+### Flow
+
+1. Asynchronous task Call Stack mein aata hai.
+2. Task Web API ko handover kar diya jaata hai.
+3. Call Stack apna baaki code execute karta rehta hai.
+4. Jab Web API apna kaam complete kar leti hai, to result ko Queue mein daal diya jaata hai.
+5. **Event Loop** continuously check karta rehta hai:
+   - Kya Call Stack empty hai?
+   - Kya Queue mein koi task pending hai?
+6. Agar Call Stack empty ho aur Queue mein task ho, to Event Loop us task ko Queue se utha kar Call Stack mein push kar deta hai.
+7. Phir woh task execute ho jaata hai.
+
+## Types of Queues
+
+JavaScript mein mainly do tarah ki queues hoti hain:
+
+### 1. Microtask Queue
+
+Is queue mein generally:
+
+- Promise callbacks (`.then()`, `.catch()`, `.finally()`)
+- `queueMicrotask()`
+- Mutation Observer callbacks
+
+store hote hain.
+
+### 2. Macrotask Queue (Callback Queue)
+
+Is queue mein generally:
+
+- `setTimeout`
+- `setInterval`
+- DOM Events
+- Location APIs
+- Other Web API callbacks
+
+store hote hain.
+
+## Priority
+
+**Microtask Queue ki priority Macrotask Queue se zyada hoti hai.**
+
+Jab bhi Call Stack empty hota hai:
+
+1. Pehle saare Microtasks execute kiye jaate hain.
+2. Uske baad Macrotask Queue ke tasks execute hote hain.
+
+Isliye Promise callbacks aksar `setTimeout` se pehle execute hote hain, chahe timeout `0ms` hi kyu na ho.
+
+## Summary
+
+- JavaScript single-threaded hai.
+- Code execute karne ke liye Call Stack use hota hai.
+- Time-consuming tasks Web APIs handle karti hain.
+- Completed tasks Queue mein jaate hain.
+- Event Loop Queue aur Call Stack ko manage karta hai.
+- Microtask Queue ki priority Macrotask Queue se zyada hoti hai.
