@@ -1,6 +1,5 @@
 # JavaScript_Working
 
-
 First of all, JavaScript is a High - Level Programming language. created for interaction with web pages
 
 There are some steps which js follow for run its code
